@@ -1,13 +1,17 @@
 const multer = require("multer");
+const path = require("path");
 
 // Set up multer for file uploads
 const storage = multer.diskStorage({
-  destination: "/uploads",
-
+  destination: function (req, file, cb) {
+    // Specify the destination folder where uploaded files will be stored
+    cb(null, path.join(__dirname, "../uploads")); // Assuming 'uploads' folder is at the root level of your project
+  },
   filename: function (req, file, cb) {
-    console.log(`${Date.now()}-${file.originalname}`);
-    const fileName = `${Date.now()}-${file.originalname}`;
-    cb(null, fileName);
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    const filename =
+      file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname);
+    cb(null, filename);
   },
 });
 
