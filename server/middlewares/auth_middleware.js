@@ -9,7 +9,6 @@ const auth = async (req, res, next) => {
 
     const tokenValue = token.replace("Bearer ", "");
     const verified = jwt.verify(tokenValue, process.env.JWT_SECRET);
-    console.log("Verification result:", verified);
     if (!verified) {
       return res.status(401).json({ error: "Authorization failed" });
     }

@@ -5,3 +5,21 @@ exports.genericSuccessResponse = function (res, data) {
     data: data,
   });
 };
+
+exports.genericErrorResponse = function (
+  res,
+  statusCode,
+  error,
+  message = null
+) {
+  return res.status(statusCode).json({
+    success: false,
+    error: error,
+    data:
+      message == null
+        ? {}
+        : {
+            message: message,
+          },
+  });
+};

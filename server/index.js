@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const authRouter = require("./routes/auth");
+const authRouter = require("./routes/user_management/auth");
+const productRouter = require("./routes/product_management/product");
 const config = require("dotenv");
 const PORT = 3500;
 const DB =
@@ -8,6 +9,8 @@ const DB =
 const app = express();
 app.use(express.json());
 app.use(`/api`, authRouter);
+app.use(`/api`, productRouter);
+
 config.config();
 mongoose
   .connect(DB)
